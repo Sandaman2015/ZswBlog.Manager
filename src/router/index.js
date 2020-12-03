@@ -70,7 +70,7 @@ export const constantRoutes = [{
           name: 'article-edit',
           component: () => import('@/views/article/article-edit'),
           meta: {
-            title: '编辑'
+            title: '文章查看'
           }
         },
         {
@@ -78,7 +78,7 @@ export const constantRoutes = [{
           name: 'article-save',
           component: () => import('@/views/article/article-save'),
           meta: {
-            title: '添加'
+            title: '添加文章'
           }
         }
       ]
