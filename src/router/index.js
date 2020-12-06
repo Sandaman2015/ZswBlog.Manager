@@ -51,8 +51,8 @@ export const constantRoutes = [{
         name: 'ZswBlog后台管理',
         component: () => import('@/views/dashboard/index'),
         meta: {
-          title: 'ZswBlog',
-          icon: 'dashboard'
+          title: 'ZswBlog后台管理',
+          // icon: 'dashboard'
         }
       }]
     },
@@ -61,16 +61,17 @@ export const constantRoutes = [{
       name: 'article',
       component: Layout,
       meta: {
-        title: '文章',
-        icon: 'form'
+        title: '文章管理',
+        icon: 'el-icon-tickets'
       },
       children: [
         {
-          path: 'article-edit',
-          name: 'article-edit',
-          component: () => import('@/views/article/article-edit'),
+          path: 'article-list',
+          name: 'article-list',
+          component: () => import('@/views/article/article-list'),
           meta: {
-            title: '文章查看'
+            title: '查看',
+            icon: 'el-icon-document'
           }
         },
         {
@@ -78,7 +79,8 @@ export const constantRoutes = [{
           name: 'article-save',
           component: () => import('@/views/article/article-save'),
           meta: {
-            title: '添加文章'
+            title: '添加文章',
+            icon: 'el-icon-edit'
           }
         }
       ]
