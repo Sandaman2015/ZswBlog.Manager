@@ -70,7 +70,7 @@ export const constantRoutes = [{
           name: 'article-list',
           component: () => import('@/views/article/article-list'),
           meta: {
-            title: '查看',
+            title: '文章列表',
             icon: 'el-icon-document'
           }
         },
@@ -146,12 +146,12 @@ export const constantRoutes = [{
   // },
 
   {
-    path: 'external-link',
+    path: '跳转Github',
     component: Layout,
     children: [{
-      path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+      path: 'https://github.com/Sandaman2015/ZswBlog.Core',
       meta: {
-        title: 'External Link',
+        title: '跳转Github',
         icon: 'link'
       }
     }]

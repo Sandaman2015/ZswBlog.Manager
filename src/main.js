@@ -34,7 +34,14 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-
+// // 全局过滤器去T 
+// Vue.filter('timeFilter', function (date) {
+//   console.log(date);
+//   if (!date) return ''
+//   date = date.toString()
+//   console.log(date);
+//   return valudatee.replace("T", " ");
+// })
 new Vue({
   el: '#app',
   router,

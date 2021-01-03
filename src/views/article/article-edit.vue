@@ -1,6 +1,6 @@
 <template>
-  <div style="padding:30px;">
-    <el-form ref="article" :model="article" label-width="80px">
+  <el-dialog :title="article.title" :visible.sync="centerDialogVisible" width="70%" @open="init" center>
+    <el-form ref="article" v-if="article" :model="article" label-width="80px">
       <el-form-item label="文章标题" prop="title">
         <el-input v-model="article.title"></el-input>
       </el-form-item>
@@ -43,12 +43,12 @@
         <quill-editor ref="myTextEditor" style="height: 500px; padding-bottom: 50px;" v-model="article.content"
           :options="quillOption"></quill-editor>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">添加文章</el-button>
-        <el-button>取消</el-button>
-      </el-form-item>
     </el-form>
-  </div>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="centerDialogVisible = false">返回</el-button>
+      <el-button type="primary" @click="onSubmit">提交</el-button>
+    </span>
+  </el-dialog>
 </template>
 
 <script>
@@ -71,9 +71,22 @@
   import {
     getAllTag
   } from '@/api/tag'
+  import {
+    articleDetails
+  } from '@/api/article.js';
   export default {
     components: {
       quillEditor
+    },
+    props: {
+      articleId: {
+        type: Number,
+        default: 0
+      },
+      centerDialogVisible: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -100,10 +113,14 @@
         }
       }
     },
-    created() {
-      this.initLoad()
-    },
     methods: {
+      init() {
+        this.initLoad()
+        articleDetails(this.articleId).then((res) => {
+          console.log(res);
+          this.article = res.result
+        })
+      },
       initLoad() {
         getAllCategory().then(res => {
           this.options = res.result
@@ -127,6 +144,7 @@
           }
           this.resetForm('article')
         })
+        this.centerDialogVisible = false;
       },
       resetForm(formName) {
         if (this.$refs[formName] !== undefined) {
@@ -164,5 +182,8 @@
 </script>
 
 <style>
-
+.ql-editor .ql-video{
+    width: 100%!important;
+    height: 100%!important;
+}
 </style>
