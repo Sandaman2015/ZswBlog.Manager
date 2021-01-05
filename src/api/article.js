@@ -11,7 +11,17 @@ export function saveArticle(data) {
     data,
   })
 }
-
+/**
+ * 更新文章
+ * @param {*} data 
+ */
+export function updateArticle(data) {
+  return request({
+    url: '/api/article/admin/update',
+    method: 'post',
+    data,
+  })
+}
 /**
  * 获取文章列表
  * @param {*} data 

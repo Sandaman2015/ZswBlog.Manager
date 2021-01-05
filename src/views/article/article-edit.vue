@@ -10,8 +10,8 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属标签" prop="tagIdList">
-        <el-checkbox-group v-model="article.tagIdList" @change="checkBoxChange">
+      <el-form-item label="所属标签" prop="tags">
+        <el-checkbox-group v-model="article.tags" @change="checkBoxChange">
           <el-checkbox v-for="(tag,index) in tagList" :label="tag.id" :key="index" :v-model="false">{{tag.name}}
           </el-checkbox>
         </el-checkbox-group>
@@ -35,7 +35,7 @@
           :on-success="handleSuccess">
           <i class="el-icon-plus"></i>
         </el-upload>
-        <el-dialog :visible.sync="dialogVisible">
+        <el-dialog title="文章预览图" :visible.sync="dialogVisible" width="20%" center="">
           <img width="100%" :src="dialogImageUrl" alt="">
         </el-dialog>
       </el-form-item>
@@ -66,7 +66,7 @@
     getAllCategory
   } from '@/api/category'
   import {
-    saveArticle
+    updateArticle
   } from '@/api/article'
   import {
     getAllTag
@@ -91,6 +91,7 @@
     data() {
       return {
         article: {
+          id:0,
           title: '',
           content: '',
           categoryId: '',
@@ -98,14 +99,14 @@
           coverImage: '',
           isTop: false,
           topSort: 0,
-          tagIdList: []
+          tags: []
         },
         options: [],
         tagList: [],
         content: null,
         quillOption: quillConfig,
         dialogImageUrl: '',
-        dialogVisible: false,
+        dialogVisible: true,
         disabled: false,
         uploadPictureAddress: process.env.VUE_APP_BASE_API + "/api/attachment/upload/image",
         uploadToken: {
@@ -116,9 +117,11 @@
     methods: {
       init() {
         this.initLoad()
+        this.dialogVisible= true
         articleDetails(this.articleId).then((res) => {
           console.log(res);
           this.article = res.result
+          this.dialogImageUrl = res.result.coverImage
         })
       },
       initLoad() {
@@ -130,7 +133,7 @@
         })
       },
       onSubmit() {
-        saveArticle(this.article).then(res => {
+        updateArticle(this.article).then(res => {
           if (res.code == 200) {
             this.$notify.success({
               title: '保存成功',
@@ -144,7 +147,7 @@
           }
           this.resetForm('article')
         })
-        this.centerDialogVisible = false;
+        centerDialogVisible = false;
       },
       resetForm(formName) {
         if (this.$refs[formName] !== undefined) {
