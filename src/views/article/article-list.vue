@@ -65,7 +65,7 @@
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex"
       :page-sizes="[10, 20, 50, 100]" :page-size="limit" layout="total, prev, pager, next" :total="total">
     </el-pagination>
-    <edit-box :articleId="isShow.showId" :centerDialogVisible="isShow.showEdit" />
+    <edit-box :articleId="isShow.showId" @showDialog="disabledDialogVisibility" :centerDialogVisible="isShow.showEdit" />
   </div>
 </template>
 
@@ -124,6 +124,9 @@
       },
       changeTopSwitch(row) {
 
+      },
+      disabledDialogVisibility(){
+        this.isShow.showEdit = false;
       },
       handleSizeChange() {},
       handleCurrentChange() {

@@ -99,7 +99,8 @@
           coverImage: '',
           isTop: false,
           topSort: 0,
-          tags: []
+          tags: [],
+          tagIdList:[]
         },
         options: [],
         tagList: [],
@@ -133,6 +134,7 @@
         })
       },
       onSubmit() {
+        this.article.tagIdList = this.article.tags
         updateArticle(this.article).then(res => {
           if (res.code == 200) {
             this.$notify.success({
@@ -141,13 +143,14 @@
             });
           } else {
             this.$notify.success({
-              title: '提示',
+              title: '未成功提示',
               message: res.message
             });
           }
           this.resetForm('article')
         })
-        centerDialogVisible = false;
+        this.centerDialogVisible = false;
+        this.$emit("disabledDialogVisibility");
       },
       resetForm(formName) {
         if (this.$refs[formName] !== undefined) {
