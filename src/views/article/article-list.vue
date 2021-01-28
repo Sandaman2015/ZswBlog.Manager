@@ -15,7 +15,7 @@
       </el-form-item>
     </el-form>
     <el-table :data="articleList">
-      <el-table-column prop="title" label="文章名称" width="280">
+      <el-table-column prop="title" label="文章名称" width="250">
       </el-table-column>
       <el-table-column prop="category.name" label="所属分类" width="120">
       </el-table-column>
@@ -84,6 +84,7 @@
           user: '',
           region: ''
         },
+        article:{},
         articleList: [],
         total: 0,
         pageIndex: 1,
@@ -120,12 +121,29 @@
       },
       changeShowSwitch(row) {
         console.log(row);
+        row.tagIdList = row.tags.map((o) => o.id)
+        console.log(row.tagIdList)
+      //   updateArticle(row).then(res => {
+      //   if (res.code == 200) {
+      //     this.$notify.success({
+      //       title: '更新成功',
+      //       message: `更新成功`
+      //     });
+      //   } else {
+      //     this.$notify.success({
+      //       title: '未成功提示',
+      //       message: res.message
+      //     });
+      //   }
+      // })
+      // this.disabledDialogVisibility(false);
       },
       changeTopSwitch(row) {
 
       },
       disabledDialogVisibility(val){
         this.isShow.showEdit = val;
+        this.initArticleList();
       },
       handleSizeChange() {},
       handleCurrentChange() {
