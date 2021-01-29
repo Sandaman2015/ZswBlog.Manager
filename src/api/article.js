@@ -33,6 +33,18 @@ export function articleList(limit, pageIndex){
   })
 }
 /**
+ * 
+ * @param {根据类型获取文章} limit 
+ * @param {*} pageIndex 
+ * @param {*} categoryId 
+ */
+export function categoryArticleList(limit, pageIndex, categoryId, dimTitle){
+  return request({
+    url: `/api/article/admin/get/page/category?limit=${limit}&pageIndex=${pageIndex}&categoryId=${categoryId}&dimTitle=${dimTitle}`,
+    method: 'get'
+  })
+}
+/**
  * 获取文章详情
  * @param {*} data 
  */
@@ -40,5 +52,26 @@ export function articleDetails(id){
   return request({
     url: `/api/article/admin/get/${id}`,
     method: 'get'
+  })
+}
+/**
+ * 禁用文章
+ * @param {*} id 
+ */
+export function disabledArticle(data){
+  return request({
+    url: `/api/article/admin/disable`,
+    method: 'post',
+    data
+  })
+}
+/**
+ * 删除文章
+ * @param {*} data 
+ */
+export function removeArticle(id) {
+  return request({
+    url: `/api/article/admin/remove/${id}`,
+    method: 'post'
   })
 }
