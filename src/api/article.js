@@ -58,11 +58,11 @@ export function articleDetails(id){
  * 禁用文章
  * @param {*} id 
  */
-export function disabledArticle(data){
+export function disabledArticle(params){
   return request({
     url: `/api/article/admin/disable`,
     method: 'post',
-    data
+    params:params
   })
 }
 /**

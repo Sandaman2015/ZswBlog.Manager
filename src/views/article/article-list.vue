@@ -192,6 +192,7 @@ export default {
             title: "更新成功",
             message: `更新成功`,
           });
+          this.disabledDialogVisibility(false);
         } else {
           this.$notify.success({
             title: "未成功提示",
@@ -199,7 +200,6 @@ export default {
           });
         }
       });
-      this.disabledDialogVisibility(false);
     },
     disabledDialogVisibility(val) {
       this.isShow.showEdit = val;

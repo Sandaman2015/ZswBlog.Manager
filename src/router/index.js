@@ -85,7 +85,237 @@ export const constantRoutes = [{
         }
       ]
     },
-
+    {
+      path: '/category',
+      name: 'category',
+      component: Layout,
+      meta: {
+        title: '分类管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'category-list',
+          name: 'category-list',
+          component: () => import('@/views/category/category-list'),
+          meta: {
+            title: '分类列表',
+            icon: 'el-icon-document'
+          }
+        }
+      ]},
+    {
+      path: '/tag',
+      name: 'tag',
+      component: Layout,
+      meta: {
+        title: '标签管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'tag-list',
+          name: 'tag-list',
+          component: () => import('@/views/tags/tag-list'),
+          meta: {
+            title: '标签列表',
+            icon: 'el-icon-document'
+          }
+        }
+      ]
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: Layout,
+      meta: {
+        title: '人员管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'user-list',
+          name: 'user-list',
+          component: () => import('@/views/user/user-list'),
+          meta: {
+            title: '登录列表',
+            icon: 'el-icon-document'
+          }
+        },
+        {
+          path: 'user-action',
+          name: 'user-action',
+          component: () => import('@/views/user/user-action'),
+          meta: {
+            title: '操作记录',
+            icon: 'el-icon-edit'
+          }
+        }
+      ]
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: Layout,
+      meta: {
+        title: '留言/评论管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'message-list',
+          name: 'message-list',
+          component: () => import('@/views/message/message-list'),
+          meta: {
+            title: '留言列表',
+            icon: 'el-icon-document'
+          }
+        },
+        {
+          path: 'comment-list',
+          name: 'comment-list',
+          component: () => import('@/views/message/comment-list'),
+          meta: {
+            title: '评论列表',
+            icon: 'el-icon-edit'
+          }
+        }
+      ]
+    },
+    {
+      path: '/travel',
+      name: 'travel',
+      component: Layout,
+      meta: {
+        title: '分享管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'travel-list',
+          name: 'travel-list',
+          component: () => import('@/views/travel/travel-list'),
+          meta: {
+            title: '分享列表',
+            icon: 'el-icon-document'
+          }
+        },
+        {
+          path: 'travel-save',
+          name: 'travel-save',
+          component: () => import('@/views/travel/travel-save'),
+          meta: {
+            title: '记录随想',
+            icon: 'el-icon-edit'
+          }
+        }
+      ]
+    },
+    {
+      path: '/site',
+      name: 'site',
+      component: Layout,
+      meta: {
+        title: '站点管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'timeline-list',
+          name: 'timeline-list',
+          component: () => import('@/views/site/timeline-list'),
+          meta: {
+            title: '时间线',
+            icon: 'el-icon-document'
+          }
+        },
+        {
+          path: 'tag-list',
+          name: 'tag-list',
+          component: () => import('@/views/site/tag-list'),
+          meta: {
+            title: '站点标签',
+            icon: 'el-icon-edit'
+          }
+        }
+      ]
+    },
+    {
+      path: '/system',
+      name: 'system',
+      component: Layout,
+      meta: {
+        title: '系统管理',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'index-manage',
+          name: 'index-manage',
+          component: () => import('@/views/system/index-manage'),
+          meta: {
+            title: '首页配置',
+            icon: 'el-icon-document'
+          }
+        },
+        {
+          path: 'banner-manage',
+          name: 'banner-manage',
+          component: () => import('@/views/system/banner-manage'),
+          meta: {
+            title: 'banner配置',
+            icon: 'el-icon-edit'
+          }
+        },
+        {
+          path: 'cache-manage',
+          name: 'cache-manage',
+          component: () => import('@/views/system/cache-manage'),
+          meta: {
+            title: '缓存管理',
+            icon: 'el-icon-edit'
+          }
+        },
+        {
+          path: 'file-manage',
+          name: 'file-manage',
+          component: () => import('@/views/system/file-manage'),
+          meta: {
+            title: '文件管理',
+            icon: 'el-icon-edit'
+          }
+        }
+      ]
+    },
+    {
+      path: '/friend',
+      name: 'friend',
+      component: Layout,
+      meta: {
+        title: '友情链接',
+        icon: 'el-icon-tickets'
+      },
+      children: [
+        {
+          path: 'link-list',
+          name: 'link-list',
+          component: () => import('@/views/friend/link-list'),
+          meta: {
+            title: '链接列表',
+            icon: 'el-icon-document'
+          }
+        },
+        {
+          path: 'link-save',
+          name: 'link-save',
+          component: () => import('@/views/friend/link-save'),
+          meta: {
+            title: '保存链接',
+            icon: 'el-icon-edit'
+          }
+        }
+      ]
+    },
   // {
   //   path: '/nested',
   //   component: Layout,
