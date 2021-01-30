@@ -41,7 +41,6 @@ export const constantRoutes = [{
       component: () => import('@/views/404'),
       hidden: true
     },
-
     {
       path: '/',
       component: Layout,
@@ -55,6 +54,82 @@ export const constantRoutes = [{
           // icon: 'dashboard'
         }
       }]
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: Layout,
+      meta: {
+        title: '人员管理',
+        icon: 'el-icon-user'
+      },
+      children: [
+        {
+          path: 'user-list',
+          name: 'user-list',
+          component: () => import('@/views/user/user-list'),
+          meta: {
+            title: '登录列表',
+            icon: 'el-icon-monitor'
+          }
+        },
+        {
+          path: 'user-action',
+          name: 'user-action',
+          component: () => import('@/views/user/user-action'),
+          meta: {
+            title: '操作记录',
+            icon: 'el-icon-mouse'
+          }
+        }
+      ]
+    },
+    {
+      path: '/system',
+      name: 'system',
+      component: Layout,
+      meta: {
+        title: '系统管理',
+        icon: 'el-icon-setting'
+      },
+      children: [
+        {
+          path: 'index-manage',
+          name: 'index-manage',
+          component: () => import('@/views/system/index-manage'),
+          meta: {
+            title: '首页配置',
+            icon: 'el-icon-star-off'
+          }
+        },
+        {
+          path: 'banner-manage',
+          name: 'banner-manage',
+          component: () => import('@/views/system/banner-manage'),
+          meta: {
+            title: 'banner配置',
+            icon: 'el-icon-picture-outline-round'
+          }
+        },
+        {
+          path: 'cache-manage',
+          name: 'cache-manage',
+          component: () => import('@/views/system/cache-manage'),
+          meta: {
+            title: '缓存管理',
+            icon: 'el-icon-coin'
+          }
+        },
+        {
+          path: 'file-manage',
+          name: 'file-manage',
+          component: () => import('@/views/system/file-manage'),
+          meta: {
+            title: '文件管理',
+            icon: 'el-icon-files'
+          }
+        }
+      ]
     },
     {
       path: '/article',
@@ -91,7 +166,7 @@ export const constantRoutes = [{
       component: Layout,
       meta: {
         title: '分类管理',
-        icon: 'el-icon-tickets'
+        icon: 'el-icon-s-data'
       },
       children: [
         {
@@ -100,7 +175,7 @@ export const constantRoutes = [{
           component: () => import('@/views/category/category-list'),
           meta: {
             title: '分类列表',
-            icon: 'el-icon-document'
+            icon: 'el-icon-s-data'
           }
         }
       ]},
@@ -110,7 +185,7 @@ export const constantRoutes = [{
       component: Layout,
       meta: {
         title: '标签管理',
-        icon: 'el-icon-tickets'
+        icon: 'el-icon-collection-tag'
       },
       children: [
         {
@@ -119,36 +194,7 @@ export const constantRoutes = [{
           component: () => import('@/views/tags/tag-list'),
           meta: {
             title: '标签列表',
-            icon: 'el-icon-document'
-          }
-        }
-      ]
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: Layout,
-      meta: {
-        title: '人员管理',
-        icon: 'el-icon-tickets'
-      },
-      children: [
-        {
-          path: 'user-list',
-          name: 'user-list',
-          component: () => import('@/views/user/user-list'),
-          meta: {
-            title: '登录列表',
-            icon: 'el-icon-document'
-          }
-        },
-        {
-          path: 'user-action',
-          name: 'user-action',
-          component: () => import('@/views/user/user-action'),
-          meta: {
-            title: '操作记录',
-            icon: 'el-icon-edit'
+            icon: 'el-icon-collection-tag'
           }
         }
       ]
@@ -158,8 +204,8 @@ export const constantRoutes = [{
       name: 'message',
       component: Layout,
       meta: {
-        title: '留言/评论管理',
-        icon: 'el-icon-tickets'
+        title: '留言/评论',
+        icon: 'el-icon-message'
       },
       children: [
         {
@@ -168,7 +214,7 @@ export const constantRoutes = [{
           component: () => import('@/views/message/message-list'),
           meta: {
             title: '留言列表',
-            icon: 'el-icon-document'
+            icon: 'el-icon-chat-square'
           }
         },
         {
@@ -177,7 +223,7 @@ export const constantRoutes = [{
           component: () => import('@/views/message/comment-list'),
           meta: {
             title: '评论列表',
-            icon: 'el-icon-edit'
+            icon: 'el-icon-chat-dot-square'
           }
         }
       ]
@@ -188,7 +234,7 @@ export const constantRoutes = [{
       component: Layout,
       meta: {
         title: '分享管理',
-        icon: 'el-icon-tickets'
+        icon: 'el-icon-position'
       },
       children: [
         {
@@ -206,7 +252,7 @@ export const constantRoutes = [{
           component: () => import('@/views/travel/travel-save'),
           meta: {
             title: '记录随想',
-            icon: 'el-icon-edit'
+            icon: 'el-icon-edit-outline'
           }
         }
       ]
@@ -217,7 +263,7 @@ export const constantRoutes = [{
       component: Layout,
       meta: {
         title: '站点管理',
-        icon: 'el-icon-tickets'
+        icon: 'el-icon-house'
       },
       children: [
         {
@@ -226,7 +272,7 @@ export const constantRoutes = [{
           component: () => import('@/views/site/timeline-list'),
           meta: {
             title: '时间线',
-            icon: 'el-icon-document'
+            icon: 'el-icon-date'
           }
         },
         {
@@ -235,54 +281,7 @@ export const constantRoutes = [{
           component: () => import('@/views/site/tag-list'),
           meta: {
             title: '站点标签',
-            icon: 'el-icon-edit'
-          }
-        }
-      ]
-    },
-    {
-      path: '/system',
-      name: 'system',
-      component: Layout,
-      meta: {
-        title: '系统管理',
-        icon: 'el-icon-tickets'
-      },
-      children: [
-        {
-          path: 'index-manage',
-          name: 'index-manage',
-          component: () => import('@/views/system/index-manage'),
-          meta: {
-            title: '首页配置',
-            icon: 'el-icon-document'
-          }
-        },
-        {
-          path: 'banner-manage',
-          name: 'banner-manage',
-          component: () => import('@/views/system/banner-manage'),
-          meta: {
-            title: 'banner配置',
-            icon: 'el-icon-edit'
-          }
-        },
-        {
-          path: 'cache-manage',
-          name: 'cache-manage',
-          component: () => import('@/views/system/cache-manage'),
-          meta: {
-            title: '缓存管理',
-            icon: 'el-icon-edit'
-          }
-        },
-        {
-          path: 'file-manage',
-          name: 'file-manage',
-          component: () => import('@/views/system/file-manage'),
-          meta: {
-            title: '文件管理',
-            icon: 'el-icon-edit'
+            icon: 'el-icon-tickets'
           }
         }
       ]
@@ -293,7 +292,7 @@ export const constantRoutes = [{
       component: Layout,
       meta: {
         title: '友情链接',
-        icon: 'el-icon-tickets'
+        icon: 'el-icon-link'
       },
       children: [
         {
@@ -302,7 +301,7 @@ export const constantRoutes = [{
           component: () => import('@/views/friend/link-list'),
           meta: {
             title: '链接列表',
-            icon: 'el-icon-document'
+            icon: 'el-icon-guide'
           }
         },
         {
@@ -311,70 +310,11 @@ export const constantRoutes = [{
           component: () => import('@/views/friend/link-save'),
           meta: {
             title: '保存链接',
-            icon: 'el-icon-edit'
+            icon: 'el-icon-add-location'
           }
         }
       ]
     },
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: 'Nested',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: 'Menu1' },
-  //       children: [
-  //         {
-  //           path: 'menu1-1',
-  //           component: () => import('@/views/nested/menu1/menu1-1'),
-  //           name: 'Menu1-1',
-  //           meta: { title: 'Menu1-1' }
-  //         },
-  //         {
-  //           path: 'menu1-2',
-  //           component: () => import('@/views/nested/menu1/menu1-2'),
-  //           name: 'Menu1-2',
-  //           meta: { title: 'Menu1-2' },
-  //           children: [
-  //             {
-  //               path: 'menu1-2-1',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-  //               name: 'Menu1-2-1',
-  //               meta: { title: 'Menu1-2-1' }
-  //             },
-  //             {
-  //               path: 'menu1-2-2',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-  //               name: 'Menu1-2-2',
-  //               meta: { title: 'Menu1-2-2' }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: 'menu1-3',
-  //           component: () => import('@/views/nested/menu1/menu1-3'),
-  //           name: 'Menu1-3',
-  //           meta: { title: 'Menu1-3' }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: 'menu2' }
-  //     }
-  //   ]
-  // },
-
   {
     path: '跳转Github',
     component: Layout,

@@ -207,7 +207,6 @@ export default {
     },
     handleSizeChange() {},
     handleCurrentChange() {
-      this.pageIndex++;
       articleList(this.limit, this.pageIndex).then((res) => {
         this.total = res.result.count;
         this.articleList = res.result.data;
