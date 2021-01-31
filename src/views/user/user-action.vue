@@ -92,7 +92,7 @@ export default {
       actionLogList: [],
       total: 0,
       pageIndex: 1,
-      limit: 15,
+      limit: 50,
       options: [
         {
           id: 1,
