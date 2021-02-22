@@ -77,6 +77,20 @@
     >
     </el-pagination>
     
+<el-dialog
+  title="操作详情"
+  :visible.sync="dialogVisible"
+  width="30%"
+  show-close
+  >
+  <div>
+    <p>请求地址：<span>{{actionLog.actionUrl}}</span></p>
+    <p>操作详情：<span>{{actionLog.actionDetail}}</span></p>
+    <p>IP地址：<span>{{actionLog.ipAddress}}</span></p>
+    <p>请求时间：<span>{{actionLog.createDate}}</span></p>
+    <p>操作人：<span>{{actionLog.operatorId}}</span></p>
+  </div>  
+</el-dialog>
   </div>
 </template>
 
@@ -89,6 +103,8 @@ export default {
         logType: "",
         dimTitle: "",
       },
+      actionLog:{},
+      dialogVisible:false,
       actionLogList: [],
       total: 0,
       pageIndex: 1,
@@ -169,7 +185,10 @@ export default {
       });
     },
     actionLogDetail(row) {
-        
+        this.dialogVisible = true;
+        getActionLogById(row.id).then((res)=>{
+          this.actionLog = res.result;
+        })
     },
   },
 };
