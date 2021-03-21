@@ -5,12 +5,9 @@
       </el-table-column>
       <el-table-column prop="title" label="标题" width="180">
       </el-table-column>
-      <el-table-column prop="priview" label="预览">
+      <el-table-column prop="createBy" label="发布端">
       </el-table-column>
-      <el-table-column label="图片">
-        <template slot-scope="scope">
-          <p v-html="scope.row.content" class="img-content">{{scope.row.content}}</p>
-        </template>
+      <el-table-column prop="content" label="内容">
       </el-table-column>
       <el-table-column label="是否显示" width="200">
         <template slot-scope="scope">
@@ -36,7 +33,7 @@
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex"
       :page-sizes="[10, 20, 50, 100]" :page-size="limit" layout="total, prev, pager, next" :total="total">
     </el-pagination>
-    <edit-box :articleId="isShow.showId" @showDialog="disabledDialogVisibility"
+    <edit-box :travelId="isShow.showId" @showDialog="disabledDialogVisibility"
       :_centerDialogVisible="isShow.showEdit" />
   </div>
 </template>
@@ -83,20 +80,24 @@
       initPage() {
         travelList(this.limit, this.pageIndex).then((res) => {
           this.travelList = res.result.data
-          this.total = res.result.total
+          this.total = res.result.count
         })
       },
       handleCurrentChange() {
         travelList(this.limit, this.pageIndex).then((res) => {
           this.travelList = res.result.data
-          this.total = res.result.total
+          this.total = res.result.count
         })
       },
       handleSizeChange() {
 
       },
       // 编辑事件
-      travelEdit(row) {},
+      travelEdit(row) {
+        console.log(row)
+        this.isShow.showEdit = true;
+        this.isShow.showId = row.id;
+      },
       // 删除事件
       travelRemove(row) {
         this.$confirm("此操作将永久删除该分享, 是否继续?", "提示", {
@@ -157,12 +158,14 @@
 </script>
 
 <style scoped>
-.img-content{
-  width: 100%;
-  height: 80px; 
-}
-.img-content >>> img{
-  width: 80px;
-  height: 100%;
-}
+  .img-content {
+    width: 100%;
+    height: 80px;
+  }
+
+  .img-content>>>img {
+    width: 80px;
+    height: 100%;
+  }
+
 </style>

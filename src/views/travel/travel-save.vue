@@ -3,6 +3,7 @@
 </template>
 
 <script>
+    import {saveTravel} from "@/api/travel"
 export default {
 
 }

@@ -32,3 +32,28 @@ export function removeTravel(id){
     method: 'delete'
   })
 }
+
+/**
+ * 获取详情
+ * @param {*} id 
+ * @returns 
+ */
+export function getTravelById(id) {
+  return request({
+    url: `/api/travel/admin/get/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 获取详情
+ * @param {*} id 
+ * @returns 
+ */
+ export function updateTravel(data) {
+  return request({
+    url: `/api/travel/admin/update`,
+    method: 'post',
+    data
+  })
+}
