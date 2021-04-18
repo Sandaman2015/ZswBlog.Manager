@@ -28,3 +28,15 @@ export function remove(params) {
     params
   })
 }
+/**
+ * 获取所有文件列表
+ * @param {*} params 
+ * @returns 
+ */
+export function getAll(params) {
+  return request({
+    url: `/api/attachment/get/all`,
+    method: 'get',
+    params
+  })
+}

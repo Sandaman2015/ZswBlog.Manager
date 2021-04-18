@@ -73,7 +73,7 @@
         }
       }
     },
-    mounted() {
+    created() {
       this.initPage()
     },
     methods: {

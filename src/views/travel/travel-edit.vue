@@ -51,7 +51,8 @@
           isShow: 0,
           createBy: "",
           content: "",
-          imgList: []
+          imgList: [],
+          fileList: []
         },
         uploadPictureAddress: process.env.VUE_APP_BASE_API + "/api/attachment/upload/image",
         uploadToken: {
@@ -88,12 +89,30 @@
         this.isShowEdit = false
       },
       onSubmit() {
-        console.log(this.travel);
+        let arr = this.travel.imgList.map(a => a.id);
+        this.travel.fileList = arr;
+        updateTravel(this.travel).then((res) => {
+          console.log(res);
+          if (res.code == 200) {
+            this.$notify.success({
+              title: '保存成功',
+              message: `旅行分享保存成功`
+            });
+          } else {
+            this.$notify.success({
+              title: '未成功提示',
+              message: res.message
+            });
+          }
+          this.resetForm('travel')
+        })
+        this.closedDialog();
       },
       // 文件上传成功时的钩子
       handleSuccess(res, file, fileList) {
-        console.log(fileList);
-        console.log(res);
+        res.result.result[0].url = res.result.result[0].path;
+        res.result.result[0].name = res.result.result[0].fileName;
+        this.travel.imgList.push(res.result.result[0]);
         this.$notify.success({
           title: "上传图片成功",
           message: `图片上传成功`,
@@ -107,16 +126,30 @@
         });
       },
       handleRemove(file) {
-        var fileObj = file.response.result.result[0];
+        var fileObj = file;
         var params = {
-          fileName: fileObj.fileName,
+          prefix: "attachment/",
+          fileName: fileObj.name,
           fileExt: fileObj.fileExt
-        };
+        }
+        if (file.response !== undefined && file.response !== null) {
+          fileObj = file.response.result.result[0];
+          var params = {
+            prefix: "attachment/",
+            fileName: fileObj.fileName,
+            fileExt: fileObj.fileExt
+          };
+        }
         remove(params).then((res) => {
-          if (res.result.success) {
+          if (res.result.flag) {
             this.$notify.success({
               title: "删除图片成功",
               message: `删除图片成功`,
+            });
+          } else {
+            this.$notify.error({
+              title: "删除图片失败",
+              message: `删除图片失败`,
             });
           }
         });
