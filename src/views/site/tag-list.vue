@@ -2,14 +2,10 @@
   <div style="padding: 30px">
     <div class="funny left">
       <div>美句赏析</div>
-      <el-divider content-position="left"
-        >我决定喜欢你一辈子，不是你的一辈子，是我的一辈子，只要我还活着，就会一直喜欢下去。</el-divider
-      >
-      <img
-        src="https://pic.netbian.com/uploads/allimg/191011/232054-15708072547304.jpg"
-      />
+      <el-divider content-position="left">{{ randomText }}</el-divider>
+      <img class="container" src="https://api.ixiaowai.cn/mcapi/mcapi.php" />
     </div>
-    <div class="funny margin-left">
+    <div class="margin-left">
       <el-tag
         v-for="tag in siteTags"
         :key="tag.name"
@@ -38,12 +34,14 @@
 
 <script>
 import { getSiteTags, saveSiteTag, removeSiteTag } from "@/api/site-tag.js";
+import { getRandomText } from "@/api/common";
 export default {
   data() {
     return {
       siteTags: [],
       inputVisible: false,
       inputValue: "",
+      randomText: "",
     };
   },
   created() {
@@ -55,13 +53,39 @@ export default {
       getSiteTags(params).then((res) => {
         this.siteTags = res.result;
       });
+      getRandomText().then((res) => {
+        this.randomText = res.data;
+      });
     },
-    // saveSiteTagS() {
-    //   const param = {};
-    //   saveSiteTag(param).then((res) => {});
-    // },
+    saveSiteTagS(inputValue) {
+      const param = {
+        title: inputValue,
+        operatorId: -1,
+      };
+      saveSiteTag(param).then((res) => {
+        if (res.result == true)
+          this.$notify.success({
+            title: "成功",
+            message: `添加站点标签成功`,
+          });
+        location.reload();
+      });
+    },
     removeSiteTags(row) {
-      saveSiteTag(row.id).then((res) => {});
+      this.$confirm("此操作将删除该站点标签, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        removeSiteTag(row).then((res) => {
+          if (res.result == true)
+            this.$notify.success({
+              title: "成功",
+              message: `删除站点标签成功`,
+            });
+          location.reload();
+        });
+      });
     },
     showInput() {
       this.inputVisible = true;
@@ -72,7 +96,7 @@ export default {
     handleInputConfirm() {
       let inputValue = this.inputValue;
       if (inputValue) {
-        this.dynamicTags.push(inputValue);
+        this.saveSiteTagS(inputValue);
       }
       this.inputVisible = false;
       this.inputValue = "";
@@ -82,11 +106,11 @@ export default {
 </script>
 
 <style scoped>
-.left{
+.left {
   float: left;
   padding: 20px;
 }
-.margin-left{
+.margin-left {
   padding-left: 20px;
 }
 .funny {
@@ -107,5 +131,9 @@ export default {
   width: 90px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+.container {
+  max-height: 800px;
+  max-width: 500px;
 }
 </style>
