@@ -1,11 +1,12 @@
 <template>
-  
+  <div style="padding:30px"></div>
 </template>
 
 <script>
-export default {
+  export default {
 
-}
+  }
+
 </script>
 
 <style>

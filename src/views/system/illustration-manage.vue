@@ -37,8 +37,8 @@
     getToken
   } from "@/utils/auth";
   import {
-    getDetailsConfig,
-    updateDetailsConfig
+    getIllustrationConfig,
+    updateIllustrationConfig
   } from "@/api/common"
   export default {
     data() {
@@ -55,7 +55,7 @@
     },
     methods: {
       init() {
-        getDetailsConfig().then((res) => {
+        getIllustrationConfig().then((res) => {
           this.fileList = res.result;
           for (let i = 0; i < this.fileList.length; i++) {
             this.fileList[i].name = "插图" + (i + 1);
@@ -64,7 +64,7 @@
       },
       onSubmit() {
         let data = this.fileList;
-        updateDetailsConfig(data).then((res) => {
+        updateIllustrationConfig(data).then((res) => {
           if (res.result) {
             this.$notify.success({
               title: "更新插图列表成功",
