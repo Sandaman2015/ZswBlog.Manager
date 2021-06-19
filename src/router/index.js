@@ -64,24 +64,14 @@ export const constantRoutes = [{
       icon: 'el-icon-user'
     },
     children: [{
-        path: 'announcement-list',
-        name: 'announcement-list',
-        component: () => import('@/views/user/announcement-list'),
-        meta: {
-          title: '通知公告',
-          icon: 'el-icon-monitor'
-        }
-      },
-      {
-        path: 'user-action',
-        name: 'user-action',
-        component: () => import('@/views/user/user-action'),
-        meta: {
-          title: '操作记录',
-          icon: 'el-icon-mouse'
-        }
+      path: 'user-action',
+      name: 'user-action',
+      component: () => import('@/views/user/user-action'),
+      meta: {
+        title: '操作记录',
+        icon: 'el-icon-mouse'
       }
-    ]
+    }]
   },
   {
     path: '/system',
@@ -92,6 +82,14 @@ export const constantRoutes = [{
       icon: 'el-icon-setting'
     },
     children: [{
+        path: 'announcement-list',
+        name: 'announcement-list',
+        component: () => import('@/views/system/announcement-list'),
+        meta: {
+          title: '通知公告',
+          icon: 'el-icon-monitor'
+        }
+      }, {
         path: 'index-manage',
         name: 'index-manage',
         component: () => import('@/views/system/index-manage'),
@@ -116,15 +114,6 @@ export const constantRoutes = [{
         meta: {
           title: '插图管理',
           icon: 'el-icon-picture-outline-round'
-        }
-      },
-      {
-        path: 'cache-manage',
-        name: 'cache-manage',
-        component: () => import('@/views/system/cache-manage'),
-        meta: {
-          title: '缓存管理',
-          icon: 'el-icon-coin'
         }
       },
       {
