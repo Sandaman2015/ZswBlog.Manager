@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="申请友情链接" :visible.sync="isShowSave" width="70%" @closed="closedDialog" center>
+  <el-dialog title="friendlink.title" :visible.sync="isShowEdit" @open="init" width="70%" @closed="closedDialog" center>
     <el-form ref="friendlink" v-if="friendlink" :model="friendlink" label-width="80px">
       <el-form-item label="标题" prop="title">
         <el-input placeholder="请输入内容" v-model="friendlink.title">
@@ -17,6 +17,11 @@
         <el-input placeholder="请输入内容" v-model="friendlink.description">
         </el-input>
       </el-form-item>
+      <el-form-item label="是否显示" prop="isShow">
+        <el-switch v-model="friendlink.isShow" active-color="#13ce66" inactive-color="#ff4949" active-text="是"
+          inactive-text="否">
+        </el-switch>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="closedDialog">返回</el-button>
@@ -27,16 +32,21 @@
 
 <script>
   import {
-    saveFriendLink
+    updateFriendLink,
+    getFriendLinkById
   } from "@/api/friend-link"
   export default {
     props: {
+      friendLinkId: {
+        type: Number,
+        default: 0,
+      },
       _centerDialogVisible: {
         type: Boolean,
       },
     },
     computed: {
-      isShowSave: {
+      isShowEdit: {
         get() {
           return this._centerDialogVisible;
         },
@@ -53,14 +63,19 @@
           portrait: "",
           src: "",
           description: "",
-          operatorId: -1
+          isShow: false
         }
       };
     },
     methods: {
+      init() {
+        getFriendLinkById(this.friendLinkId).then((res) => {
+          this.friendlink = res.result;
+        });
+      },
       onSubmit() {
         var entity = this.friendlink;
-        saveFriendLink(entity).then(res => {
+        updateFriendLink(entity).then(res => {
           if (res.code == 200) {
             this.$notify.success({
               title: '保存成功',
@@ -76,8 +91,7 @@
         this.closedDialog();
       },
       closedDialog() {
-        this.isShowSave = false;
-        console.log(this.isShowSave);
+        this.isShowEdit = false;
       }
     },
   };

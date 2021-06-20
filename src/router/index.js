@@ -284,24 +284,14 @@ export const constantRoutes = [{
       icon: 'el-icon-link'
     },
     children: [{
-        path: 'link-list',
-        name: 'link-list',
-        component: () => import('@/views/friend/link-list'),
-        meta: {
-          title: '链接列表',
-          icon: 'el-icon-guide'
-        }
-      },
-      {
-        path: 'link-save',
-        name: 'link-save',
-        component: () => import('@/views/friend/link-save'),
-        meta: {
-          title: '保存链接',
-          icon: 'el-icon-add-location'
-        }
+      path: 'link-list',
+      name: 'link-list',
+      component: () => import('@/views/friend/link-list'),
+      meta: {
+        title: '链接列表',
+        icon: 'el-icon-guide'
       }
-    ]
+    }]
   },
   {
     path: '跳转Github',
