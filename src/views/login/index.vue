@@ -181,7 +181,7 @@
   .login-container {
     min-height: 100%;
     width: 100%;
-    background-color: $bg;
+    background: url("https://zswblog.oss-cn-hangzhou.aliyuncs.com/index/star_cross.jpg");
     overflow: hidden;
 
     .login-form {

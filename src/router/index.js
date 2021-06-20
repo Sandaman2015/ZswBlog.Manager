@@ -47,11 +47,11 @@ export const constantRoutes = [{
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'ZswBlog后台管理',
+      name: '控制台',
       component: () => import('@/views/dashboard/index'),
       meta: {
-        title: 'ZswBlog后台管理',
-        // icon: 'dashboard'
+        title: '控制台',
+        icon: 'dashboard'
       }
     }]
   },
