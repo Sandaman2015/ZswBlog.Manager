@@ -41,7 +41,7 @@ export default {
       type: Number,
       default: 0
     },
-    _centerDialogVisible: {
+    centerDialogVisible: {
       type: Boolean
     }
   },
@@ -60,7 +60,7 @@ export default {
   computed: {
     isShowEdit: {
       get() {
-        return this._centerDialogVisible
+        return this.centerDialogVisible
       },
       set(val) {
         this.$emit('showDialog', val)

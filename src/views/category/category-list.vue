@@ -21,101 +21,95 @@
         </template>
       </el-table-column>
     </el-table>
-    <edit-box
-      :category-id="isShow.showId"
-      :-center-dialog-visible="isShow.showEdit"
-      @showDialog="disabledEditDialogVisibility"
-    />
-    <save-box
-      :category-id="isShow.showId"
-      :-center-dialog-visible="isShow.showSave"
-      @showDialog="disabledSaveDialogVisibility"
-    />
+    <edit-box :categoryId="isShow.showId" :centerDialogVisible="isShow.showEdit"
+      @showDialog="disabledEditDialogVisibility" />
+    <save-box :categoryId="isShow.showId" :centerDialogVisible="isShow.showSave"
+      @showDialog="disabledSaveDialogVisibility" />
   </div>
 </template>
 
 <script>
-import {
-  getAllCategory,
-  removeCategory
-} from '@/api/category'
-import SaveBox from './category-save'
-import EditBox from './category-edit'
-export default {
-  components: {
-    SaveBox,
-    EditBox
-  },
-  filters: {
-    timeFilter: function(date) {
-      date = date.toString().replace('T', ' ')
-      if (date === '0001-01-01 00:00:00') {
-        return '无'
-      } else {
-        return date
+  import {
+    getAllCategory,
+    removeCategory
+  } from '@/api/category'
+  import SaveBox from './category-save'
+  import EditBox from './category-edit'
+  export default {
+    components: {
+      SaveBox,
+      EditBox
+    },
+    filters: {
+      timeFilter: function (date) {
+        date = date.toString().replace('T', ' ')
+        if (date === '0001-01-01 00:00:00') {
+          return '无'
+        } else {
+          return date
+        }
+      }
+    },
+    data() {
+      return {
+        categoryList: [],
+        isShow: {
+          showEdit: false,
+          showSave: false,
+          showId: 0,
+          showDetails: false
+        },
+        options: []
+      }
+    },
+    created() {
+      this.initPage()
+    },
+    methods: {
+      initPage() {
+        const params = {}
+        getAllCategory(params).then((res) => {
+          this.categoryList = res.result
+        })
+      },
+      categoryEdit(row) {
+        this.isShow.showEdit = true
+        this.isShow.showId = row.id
+      },
+      removeCategoryById(row) {
+        this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          removeCategory(row.id)
+            .then((res) => {
+              console.log(res)
+              if (res.result === true) {
+                this.$notify.success({
+                  title: '删除成功',
+                  message: `删除成功`
+                })
+              } else {
+                this.$notify.success({
+                  title: '未成功提示',
+                  message: res.message
+                })
+              }
+            })
+        })
+        this.initPage()
+      },
+      disabledEditDialogVisibility(val) {
+        this.isShow.showEdit = val
+        this.initPage()
+      },
+      disabledSaveDialogVisibility(val) {
+        this.isShow.showSave = val
+        this.initPage()
       }
     }
-  },
-  data() {
-    return {
-      categoryList: [],
-      isShow: {
-        showEdit: false,
-        showSave: false,
-        showId: 0,
-        showDetails: false
-      },
-      options: []
-    }
-  },
-  created() {
-    this.initPage()
-  },
-  methods: {
-    initPage() {
-      const params = {}
-      getAllCategory(params).then((res) => {
-        this.categoryList = res.result
-      })
-    },
-    categoryEdit(row) {
-      this.isShow.showEdit = true
-      this.isShow.showId = row.id
-    },
-    removeCategoryById(row) {
-      this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        removeCategory(row.id)
-          .then((res) => {
-            console.log(res)
-            if (res.result === true) {
-              this.$notify.success({
-                title: '删除成功',
-                message: `删除成功`
-              })
-            } else {
-              this.$notify.success({
-                title: '未成功提示',
-                message: res.message
-              })
-            }
-          })
-      })
-      this.initPage()
-    },
-    disabledEditDialogVisibility(val) {
-      this.isShow.showEdit = val
-      this.initPage()
-    },
-    disabledSaveDialogVisibility(val) {
-      this.isShow.showSave = val
-      this.initPage()
-    }
   }
-}
 
 </script>
 

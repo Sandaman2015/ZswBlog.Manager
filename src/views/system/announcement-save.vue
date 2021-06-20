@@ -38,7 +38,7 @@ import {
 } from '@/api/announcement'
 export default {
   props: {
-    _centerDialogVisible: {
+    centerDialogVisible: {
       type: Boolean
     }
   },
@@ -56,7 +56,7 @@ export default {
   computed: {
     isShowSave: {
       get() {
-        return this._centerDialogVisible
+        return this.centerDialogVisible
       },
       set(val) {
         this.$emit('showDialog', val)

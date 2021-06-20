@@ -33,83 +33,77 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      :current-page.sync="pageIndex"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="limit"
-      layout="total, prev, pager, next"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
-    <save-box :-center-dialog-visible="isShow.showSave" @showDialog="disabledDialogVisibility" />
+    <el-pagination :current-page.sync="pageIndex" :page-sizes="[10, 20, 50, 100]" :page-size="limit"
+      layout="total, prev, pager, next" :total="total" @size-change="handleSizeChange"
+      @current-change="handleCurrentChange" />
+    <save-box :centerDialogVisible="isShow.showSave" @showDialog="disabledDialogVisibility" />
   </div>
 </template>
 
 <script>
-import {
-  getAnnouncement,
-  removeAnnouncement
-} from '@/api/announcement'
-import SaveBox from './announcement-save'
-export default {
-  components: {
-    SaveBox
-  },
-  filters: {
-    timeFilter: function(date) {
-      date = date.toString().replace('T', ' ')
-      if (date === '0001-01-01 00:00:00') {
-        return '无'
-      } else {
-        return date
-      }
-    }
-  },
-  data() {
-    return {
-      announcementList: [],
-      total: 0,
-      pageIndex: 1,
-      limit: 15,
-      isShow: {
-        showSave: false,
-        showId: 0
-      }
-    }
-  },
-  mounted() {
-    this.getInitPage()
-  },
-  methods: {
-    getInitPage() {
-      getAnnouncement(this.limit, this.pageIndex).then(res => {
-        this.total = res.result.count
-        this.announcementList = res.result.data
-      })
+  import {
+    getAnnouncement,
+    removeAnnouncement
+  } from '@/api/announcement'
+  import SaveBox from './announcement-save'
+  export default {
+    components: {
+      SaveBox
     },
-    removeAnnouncementById(row) {
-      removeAnnouncement(row.id).then(res => {
-        if (res.result) {
-          this.$notify.success({
-            title: '删除成功',
-            message: `删除成功`
-          })
+    filters: {
+      timeFilter: function (date) {
+        date = date.toString().replace('T', ' ')
+        if (date === '0001-01-01 00:00:00') {
+          return '无'
+        } else {
+          return date
         }
-      })
+      }
     },
-    handleCurrentChange() {
-      getAnnouncement(this.limit, this.pageIndex).then((res) => {
-        this.total = res.result.count
-        this.announcementList = res.result.data
-      })
+    data() {
+      return {
+        announcementList: [],
+        total: 0,
+        pageIndex: 1,
+        limit: 15,
+        isShow: {
+          showSave: false,
+          showId: 0
+        }
+      }
     },
-    handleSizeChange() {},
-    disabledDialogVisibility(val) {
-      this.isShow.showSave = val
+    mounted() {
+      this.getInitPage()
+    },
+    methods: {
+      getInitPage() {
+        getAnnouncement(this.limit, this.pageIndex).then(res => {
+          this.total = res.result.count
+          this.announcementList = res.result.data
+        })
+      },
+      removeAnnouncementById(row) {
+        removeAnnouncement(row.id).then(res => {
+          if (res.result) {
+            this.$notify.success({
+              title: '删除成功',
+              message: `删除成功`
+            })
+          }
+        })
+      },
+      handleCurrentChange() {
+        getAnnouncement(this.limit, this.pageIndex).then((res) => {
+          this.total = res.result.count
+          this.announcementList = res.result.data
+        })
+      },
+      handleSizeChange() {},
+      disabledDialogVisibility(val) {
+        this.isShow.showSave = val
+      }
     }
   }
-}
 
 </script>
 

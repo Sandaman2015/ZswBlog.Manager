@@ -28,91 +28,82 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      :current-page.sync="pageIndex"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="limit"
-      layout="total, prev, pager, next"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
-    <save-box :-center-dialog-visible="isShow.showSave" @showDialog="disabledDialogSaveVisibility" />
-    <edit-box
-      :-center-dialog-visible="isShow.showEdit"
-      :friend-link-id="isShow.showId"
-      @showDialog="disabledDialogEditVisibility"
-    />
+    <el-pagination :current-page.sync="pageIndex" :page-sizes="[10, 20, 50, 100]" :page-size="limit"
+      layout="total, prev, pager, next" :total="total" @size-change="handleSizeChange"
+      @current-change="handleCurrentChange" />
+    <save-box :centerDialogVisible="isShow.showSave" @showDialog="disabledDialogSaveVisibility" />
+    <edit-box :centerDialogVisible="isShow.showEdit" :friendLinkId="isShow.showId"
+      @showDialog="disabledDialogEditVisibility" />
   </div>
 </template>
 
 <script>
-import {
-  getFriendLink,
-  removeFriendLink
-} from '@/api/friend-link'
-import SaveBox from './link-save'
-import EditBox from './link-edit'
-export default {
-  components: {
-    SaveBox,
-    EditBox
-  },
-  data() {
-    return {
-      friendLinkList: [],
-      total: 0,
-      pageIndex: 1,
-      limit: 15,
-      isShow: {
-        showSave: false,
-        showId: 0,
-        showEdit: false
+  import {
+    getFriendLink,
+    removeFriendLink
+  } from '@/api/friend-link'
+  import SaveBox from './link-save'
+  import EditBox from './link-edit'
+  export default {
+    components: {
+      SaveBox,
+      EditBox
+    },
+    data() {
+      return {
+        friendLinkList: [],
+        total: 0,
+        pageIndex: 1,
+        limit: 15,
+        isShow: {
+          showSave: false,
+          showId: 0,
+          showEdit: false
+        }
+      }
+    },
+    mounted() {
+      this.getInitPage()
+    },
+    methods: {
+      getInitPage() {
+        getFriendLink(this.limit, this.pageIndex).then(res => {
+          this.total = res.result.count
+          this.friendLinkList = res.result.data
+        })
+      },
+      friendLinkRemove(row) {
+        removeFriendLink(row.id).then(res => {
+          if (res.result) {
+            this.$notify.success({
+              title: '删除成功',
+              message: `删除成功`
+            })
+            this.getInitPage()
+          }
+        })
+      },
+      friendLinkEdit(row) {
+        this.isShow.showEdit = true
+        this.isShow.showId = row.id
+      },
+      handleCurrentChange() {
+        getFriendLink(this.limit, this.pageIndex).then((res) => {
+          this.total = res.result.count
+          this.friendLinkList = res.result.data
+        })
+      },
+      handleSizeChange() {},
+      disabledDialogSaveVisibility(val) {
+        this.isShow.showSave = val
+        this.getInitPage()
+      },
+      disabledDialogEditVisibility(val) {
+        this.isShow.showEdit = val
+        this.getInitPage()
       }
     }
-  },
-  mounted() {
-    this.getInitPage()
-  },
-  methods: {
-    getInitPage() {
-      getFriendLink(this.limit, this.pageIndex).then(res => {
-        this.total = res.result.count
-        this.friendLinkList = res.result.data
-      })
-    },
-    friendLinkRemove(row) {
-      removeFriendLink(row.id).then(res => {
-        if (res.result) {
-          this.$notify.success({
-            title: '删除成功',
-            message: `删除成功`
-          })
-          this.getInitPage()
-        }
-      })
-    },
-    friendLinkEdit(row) {
-      this.isShow.showEdit = true
-      this.isShow.showId = row.id
-    },
-    handleCurrentChange() {
-      getFriendLink(this.limit, this.pageIndex).then((res) => {
-        this.total = res.result.count
-        this.friendLinkList = res.result.data
-      })
-    },
-    handleSizeChange() {},
-    disabledDialogSaveVisibility(val) {
-      this.isShow.showSave = val
-      this.getInitPage()
-    },
-    disabledDialogEditVisibility(val) {
-      this.isShow.showEdit = val
-      this.getInitPage()
-    }
   }
-}
 
 </script>
 

@@ -12,7 +12,6 @@
         :on-remove="handleRemove"
         :file-list="fileList"
         name="files"
-        :on-error="handleError"
         :on-success="handleSuccess"
       >
         <el-button size="small" type="primary">点击上传</el-button>
@@ -91,16 +90,7 @@ export default {
       file.src = res.result.result[0].path
       this.fileList.push(file)
     },
-    // 文件上传失败时的钩子
-    handleError(err, file, fileList) {
-      this.$notify.error({
-        title: '上传Banner错误',
-        message: `Banner图上传失败`
-      })
-    },
     handleRemove(file) {
-      console.log(file)
-      console.log(this.fileList)
       this.fileList.splice(this.fileList.findIndex(item => item.name === file.name), 1)
     },
     beforeUpload(file) {

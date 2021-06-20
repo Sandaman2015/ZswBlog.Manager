@@ -45,7 +45,6 @@
           :limit="1"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
-          :on-error="handleError"
           :on-success="handleSuccess"
         >
           <i class="el-icon-plus" />
@@ -165,13 +164,6 @@ export default {
       this.$notify.success({
         title: '上传Banner成功',
         message: `Banner图上传成功`
-      })
-    },
-    // 文件上传失败时的钩子
-    handleError(err, file, fileList) {
-      this.$notify.error({
-        title: '上传Banner错误',
-        message: `Banner图上传失败`
       })
     },
     checkBoxChange(value) {

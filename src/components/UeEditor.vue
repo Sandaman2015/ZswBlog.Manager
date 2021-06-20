@@ -1,41 +1,41 @@
 <!-- 组件代码如下 -->
 <template>
   <div>
-    <script id="editor" type="text/plain" />
+    <!-- <script id="editor" type="text/plain" /> -->
   </div>
 </template>
 <script>
-export default {
-  name: 'UE',
-  props: {
-    defaultMsg: {
-      type: String
+  export default {
+    name: 'UE',
+    // props: {
+    //   defaultMsg: {
+    //     type: String
+    //   },
+    //   config: {
+    //     type: Object
+    //   } 
+    // },
+    data() {
+      return {
+        editor: null
+      }
     },
-    config: {
-      type: Object
-    }
-  },
-  data() {
-    return {
-      editor: null
-    }
-  },
-  mounted() {
-    const _this = this
-    // eslint-disable-next-line no-undef
-    this.editor = UE.getEditor('editor', this.config) // 初始化UE
-    this.editor.addListener('ready', function() {
-      _this.editor.setContent(_this.defaultMsg) // 确保UE加载完成后，放入内容。
-    })
-  },
-  destroyed() {
-    this.editor.destroy()
-  },
-  methods: {
-    getUEContent() { // 获取内容方法
-      return this.editor.getContent()
+    mounted() {
+      const _this = this
+      // eslint-disable-next-line no-undef
+      this.editor = UE.getEditor('editor', this.config) // 初始化UE
+      this.editor.addListener('ready', function () {
+        _this.editor.setContent(_this.defaultMsg) // 确保UE加载完成后，放入内容。
+      })
+    },
+    destroyed() {
+      this.editor.destroy()
+    },
+    methods: {
+      getUEContent() { // 获取内容方法
+        return this.editor.getContent()
+      }
     }
   }
-}
 
 </script>

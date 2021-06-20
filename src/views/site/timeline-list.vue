@@ -23,91 +23,91 @@
         </template>
       </el-table-column>
     </el-table>
-    <edit-box :-center-dialog-visible="isShow.showEdit" @showDialog="disabledDialogVisibility" />
+    <edit-box :centerDialogVisible="isShow.showEdit" @showDialog="disabledDialogVisibility" />
   </div>
 </template>
 
 <script>
-import {
-  getTimeLineList,
-  removeTimeLine
-} from '@/api/timeline.js'
-import EditBox from './timeline-save'
-export default {
-  components: {
-    EditBox
-  },
-  filters: {
-    timeFilter: function(date) {
-      date = date.toString().replace('T', ' ')
-      if (date === '0001-01-01 00:00:00') {
-        return '无'
-      } else {
-        return date
+  import {
+    getTimeLineList,
+    removeTimeLine
+  } from '@/api/timeline.js'
+  import EditBox from './timeline-save'
+  export default {
+    components: {
+      EditBox
+    },
+    filters: {
+      timeFilter: function (date) {
+        date = date.toString().replace('T', ' ')
+        if (date === '0001-01-01 00:00:00') {
+          return '无'
+        } else {
+          return date
+        }
+      }
+    },
+    data() {
+      return {
+        timeLineList: [],
+        isShow: {
+          showEdit: false,
+          showId: 0,
+          showDetails: false
+        },
+        options: []
+      }
+    },
+    created() {
+      this.initPage()
+    },
+    methods: {
+      initPage() {
+        getTimeLineList().then((res) => {
+          this.timeLineList = res.result
+        })
+      },
+      // 编辑事件
+      timeLineSave(row) {
+        this.isShow.showEdit = true
+        this.isShow.showId = row.id
+      },
+      // 删除事件
+      timeLineRemove(row) {
+        this.$confirm('此操作将永久删除该分享, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          })
+          .then(() => {
+            removeTimeLine(row.id).then((res) => {
+              if (res.code === 200) {
+                this.$notify.success({
+                  title: '删除成功',
+                  message: `删除成功`
+                })
+                this.initPage()
+              } else {
+                this.$notify.success({
+                  title: '未成功提示',
+                  message: res.message
+                })
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+      },
+      disabledDialogVisibility(val) {
+        this.isShow.showEdit = val
+        this.initPage()
       }
     }
-  },
-  data() {
-    return {
-      timeLineList: [],
-      isShow: {
-        showEdit: false,
-        showId: 0,
-        showDetails: false
-      },
-      options: []
-    }
-  },
-  created() {
-    this.initPage()
-  },
-  methods: {
-    initPage() {
-      getTimeLineList().then((res) => {
-        this.timeLineList = res.result
-      })
-    },
-    // 编辑事件
-    timeLineSave(row) {
-      this.isShow.showEdit = true
-      this.isShow.showId = row.id
-    },
-    // 删除事件
-    timeLineRemove(row) {
-      this.$confirm('此操作将永久删除该分享, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(() => {
-          removeTimeLine(row.id).then((res) => {
-            if (res.code === 200) {
-              this.$notify.success({
-                title: '删除成功',
-                message: `删除成功`
-              })
-              this.initPage()
-            } else {
-              this.$notify.success({
-                title: '未成功提示',
-                message: res.message
-              })
-            }
-          })
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
-    },
-    disabledDialogVisibility(val) {
-      this.isShow.showEdit = val
-      this.initPage()
-    }
   }
-}
 
 </script>
 
