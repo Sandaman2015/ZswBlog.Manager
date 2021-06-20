@@ -1,53 +1,53 @@
 import request from '@/utils/request'
 /**
  * 获取通知公告
- * @param {*} data 
+ * @param {*} data
  */
 export function getFriendLink(limit, pageIndex) {
   return request({
-    url: `/api/friendlink/admin/get/page?limit=${limit}&pageIndex=${pageIndex}`,
-    method: 'get',
+    url: `/friendlink/admin/get/page?limit=${limit}&pageIndex=${pageIndex}`,
+    method: 'get'
   })
 }
 /**
  * 更新友情连接
- * @param {*} data 
+ * @param {*} data
  */
 export function updateFriendLink(data) {
   return request({
-    url: '/api/friendlink/admin/update',
+    url: '/friendlink/admin/update',
     method: 'post',
-    data,
+    data
   })
 }
 /**
  * 添加友情连接
- * @param {*} data 
+ * @param {*} data
  */
 export function saveFriendLink(data) {
   return request({
-    url: '/api/friendlink/save',
+    url: '/friendlink/save',
     method: 'post',
-    data,
+    data
   })
 }
 /**
  * 删除友情连接
- * @param {*} data 
+ * @param {*} data
  */
 export function removeFriendLink(id) {
   return request({
-    url: `/api/friendlink/admin/remove/${id}`,
+    url: `/friendlink/admin/remove/${id}`,
     method: 'delete'
   })
 }
 /**
  * 获取友情连接详情
- * @param {*} data 
+ * @param {*} data
  */
 export function getFriendLinkById(id) {
   return request({
-    url: `/api/friendlink/admin/get/${id}`,
-    method: 'get',
+    url: `/friendlink/admin/get/${id}`,
+    method: 'get'
   })
 }

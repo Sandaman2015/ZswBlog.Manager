@@ -2,22 +2,22 @@ import request from '@/utils/request'
 
 /**
  * 获取操作日志列表
- * @param {*} data 
+ * @param {*} data
  */
 export function getActionLogList(params) {
   return request({
-    url: '/api/action/admin/get/page',
+    url: '/action/admin/get/page',
     method: 'get',
-    params:params,
+    params: params
   })
 }
 /**
  * 获取操作详情
- * @param {*} id 
+ * @param {*} id
  */
 export function getActionLogById(id) {
-    return request({
-      url: `/api/action/admin/get/${id}`,
-      method: 'get',
-    })
-  }
+  return request({
+    url: `/action/admin/get/${id}`,
+    method: 'get'
+  })
+}

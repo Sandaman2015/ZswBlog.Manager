@@ -1,53 +1,54 @@
 import request from '@/utils/request'
 /**
  * 获取所有分类
- * @param {*} params 
+ * @param {*} params
  */
- export function getAllCategory(params) {
+export function getAllCategory(params) {
   return request({
-    url: `/api/category/get/all`,
+    url: `/category/get/all`,
     method: 'get',
     params
   })
 }
 /**
  * 获取分类详情
- * @param {*} params 
+ * @param {*} params
  */
- export function getCategory(id) {
+export function getCategory(id) {
   return request({
-    url: `/api/category/get/${id}`,
+    url: `/category/get/${id}`,
     method: 'get'
   })
 }
 /**
  * 删除分类
- * @param {*} params 
+ * @param {*} params
  */
 export function removeCategory(id) {
   return request({
-    url: `/api/category/admin/remove/${id}`,
+    url: `/category/admin/remove/${id}`,
     method: 'delete'
   })
 }
 /**
  * 保存分类
- * @param {*} params 
+ * @param {*} params
  */
- export function saveCategory(data) {
+export function saveCategory(data) {
   return request({
-    url: '/api/category/admin/save',
+    url: '/category/admin/save',
     method: 'post',
-    data,
+    data
   })
-}/**
+}
+/**
  * 更新分类
- * @param {*} params 
+ * @param {*} params
  */
 export function updateCategory(data) {
   return request({
-    url: '/api/category/admin/update',
+    url: '/category/admin/update',
     method: 'post',
-    data,
+    data
   })
 }

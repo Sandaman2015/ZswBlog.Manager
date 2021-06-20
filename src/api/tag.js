@@ -2,34 +2,34 @@ import request from '@/utils/request'
 
 /**
  * 获取所有文章标签
- * @param {*} params 
+ * @param {*} params
  */
 export function getAllTag(params) {
   return request({
-    url: '/api/tag/get/all',
+    url: '/tag/get/all',
     method: 'get',
-    params,
+    params
   })
 }
 
 /**
  * 添加标签信息
- * @param {*} data 
+ * @param {*} data
  */
- export function saveTag(data) {
+export function saveTag(data) {
   return request({
-      url: '/api/tag/admin/save',
-      method: 'post',
-      data,
+    url: '/tag/admin/save',
+    method: 'post',
+    data
   })
 }
 /**
-* 删除标签信息
-* @param {*} data 
-*/
+ * 删除标签信息
+ * @param {*} data
+ */
 export function removeTag(id) {
   return request({
-      url: `/api/tag/admin/remove/${id}`,
-      method: 'delete'
+    url: `/tag/admin/remove/${id}`,
+    method: 'delete'
   })
 }

@@ -1,34 +1,34 @@
 import request from '@/utils/request'
 /**
  * 添加时间线
- * @param {*} data 
+ * @param {*} data
  */
 export function saveTimeline(data) {
   return request({
-    url: '/api/timeline/admin/save',
+    url: '/timeline/admin/save',
     method: 'post',
-    data,
+    data
   })
 }
 
 /**
  * 获取时间线列表
- * @param {*} data 
+ * @param {*} data
  */
 export function getTimeLineList(limit, pageIndex) {
   return request({
-    url: `/api/timeline/get/all`,
+    url: `/timeline/get/all`,
     method: 'get'
   })
 }
 
 /**
  * 删除时间线
- * @param {}} id 
+ * @param {}} id
  */
-export function removeTimeLine(id){
+export function removeTimeLine(id) {
   return request({
-    url: `/api/timeline/admin/remove/${id}`,
+    url: `/timeline/admin/remove/${id}`,
     method: 'delete'
   })
 }

@@ -14,21 +14,21 @@
 </template>
 
 <script>
-  export default {
-    name: 'SidebarLogo',
-    props: {
-      collapse: {
-        type: Boolean,
-        required: true
-      }
-    },
-    data() {
-      return {
-        title: 'ZswBlog Admin',
-        logo: 'https://www.zswblog.xyz/img/icon.e0dd8274.jpg'
-      }
+export default {
+  name: 'SidebarLogo',
+  props: {
+    collapse: {
+      type: Boolean,
+      required: true
+    }
+  },
+  data() {
+    return {
+      title: 'ZswBlog Admin',
+      logo: 'https://www.zswblog.xyz/img/icon.e0dd8274.jpg'
     }
   }
+}
 
 </script>
 
