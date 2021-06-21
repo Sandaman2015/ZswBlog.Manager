@@ -7,7 +7,7 @@ import request from '@/utils/request'
 export function getRandomText() {
   return axios({
     methods: 'get',
-    url: 'https:/.ixiaowai.cn/ylapi/index.php'
+    url: 'https:/api.ixiaowai.cn/ylapi/index.php'
   })
 }
 export function getInitVideoConfig() {

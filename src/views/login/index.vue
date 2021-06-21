@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import {
-  validUsername
-} from '@/utils/validate'
+// import {
+//   validUsername
+// } from '@/utils/validate'
   // import {
   //   login
   // } from '@/api/user'
@@ -73,7 +73,7 @@ export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (value.length === 0) {
         callback(new Error('请输入用户名'))
       } else {
         callback()
