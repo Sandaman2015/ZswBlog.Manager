@@ -26,7 +26,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="actionUrl" label="请求地址" width="280" />
-      <el-table-column prop="actionDetail" label="操作详细" width="400" />
+      <el-table-column prop="actionDetail" label="操作详细" width="400" :show-overflow-tooltip="true"/>
       <el-table-column prop="operatorId" label="操作人" width="180" />
       <el-table-column label="IP地址" width="120">
         <template slot-scope="scope">
@@ -97,7 +97,7 @@ export default {
       actionLogList: [],
       total: 0,
       pageIndex: 1,
-      limit: 50,
+      limit: 12,
       options: [{
         id: 1,
         name: 'Info'

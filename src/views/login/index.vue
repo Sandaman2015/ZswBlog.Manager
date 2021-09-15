@@ -60,15 +60,6 @@
 </template>
 
 <script>
-// import {
-//   validUsername
-// } from '@/utils/validate'
-  // import {
-  //   login
-  // } from '@/api/user'
-  // import {
-  //   setToken
-  // } from '@/utils/auth.js'
 export default {
   name: 'Login',
   data() {

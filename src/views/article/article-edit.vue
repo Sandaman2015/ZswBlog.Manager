@@ -2,11 +2,11 @@
   <el-dialog :title="article.title" :visible.sync="isShowEdit" width="70%" center @open="init" @closed="closedDialog">
     <el-form v-if="article" ref="article" :model="article" label-width="80px">
       <el-form-item label="文章标题" prop="title">
-        <el-input v-model="article.title" />
+        <el-input v-model="article.title"/>
       </el-form-item>
       <el-form-item label="所属分类" prop="categoryId">
         <el-select v-model="article.categoryId" placeholder="请选择文章所属分类">
-          <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="所属标签" prop="tags">
@@ -34,7 +34,7 @@
         />
       </el-form-item>
       <el-form-item label="置顶排序" prop="topSort">
-        <el-input-number v-model="article.topSort" controls-position="right" :min="1" :max="999" />
+        <el-input-number v-model="article.topSort" controls-position="right" :min="1" :max="999"/>
       </el-form-item>
       <el-form-item label="Banner图">
         <el-upload
@@ -47,18 +47,20 @@
           :on-remove="handleRemove"
           :on-success="handleSuccess"
         >
-          <i class="el-icon-plus" />
+          <i class="el-icon-plus"/>
         </el-upload>
         <el-dialog :visible.sync="dialogVisible" width="20%">
           <img width="100%" :src="dialogImageUrl" alt>
         </el-dialog>
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
-        <quill-editor
-          ref="myTextEditor"
+        <mavon-editor
+          ref="md"
           v-model="article.content"
-          style="height: 500px; padding-bottom: 50px"
-          :options="quillOption"
+          :ishljs="true"
+          style="height: 700px; padding-bottom: 50px;"
+          @imgAdd="$imgAdd"
+          @imgDel="$imgDel"
         />
       </el-form-item>
     </el-form>
@@ -73,13 +75,6 @@
 import {
   getToken
 } from '@/utils/auth'
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-import {
-  quillEditor
-} from 'vue-quill-editor'
-import quillConfig from '@/store/modules/quill-editor-config.js'
 import {
   getAllCategory
 } from '@/api/category'
@@ -92,10 +87,10 @@ import {
 import {
   articleDetails
 } from '@/api/article.js'
+import { upload } from '@/api/attachment'
+
 export default {
-  components: {
-    quillEditor
-  },
+  components: {},
   props: {
     articleId: {
       type: Number,
@@ -122,7 +117,6 @@ export default {
       options: [],
       tagList: [],
       content: null,
-      quillOption: quillConfig,
       dialogImageUrl: '',
       dialogVisible: true,
       disabled: false,
@@ -204,6 +198,25 @@ export default {
     },
     checkBoxChange(value) {
       this.article.tagIdList = value
+    },
+    $imgAdd(pos, $file) {
+      // 第一步.将图片上传到服务器.
+      var formdata = new FormData()
+      formdata.append('files', $file)
+      upload(null, formdata, null).then((res) => {
+        // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+        const _res = res.result.result[0]
+        // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+        this.$refs.md.$img2Url(pos, _res.path)
+        /**
+         * $vm 指为mavonEditor实例，可以通过如下两种方式获取
+         * 1. 通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
+         * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
+         */
+      })
+    },
+    $imgDel(pos) {
+      delete this.imgFile[pos]
     }
   }
 }
@@ -211,9 +224,9 @@ export default {
 </script>
 
 <style>
-  .ql-editor .ql-video {
-    width: 100% !important;
-    height: 100% !important;
-  }
+.ql-editor .ql-video {
+  width: 100% !important;
+  height: 100% !important;
+}
 
 </style>

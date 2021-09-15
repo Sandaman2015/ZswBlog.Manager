@@ -3,10 +3,10 @@
     <el-button type="primary" size="small" icon="el-icon-edit" @click="isShow.showSave = true">新建公告</el-button>
     <el-table :data="announcementList" style="width: 100%">
       <el-table-column prop="id" label="编码" width="180" />
-      <el-table-column prop="content" label="公告内容" width="180" />
+      <el-table-column prop="content" label="公告内容" width="180" :show-overflow-tooltip="true"/>
       <el-table-column prop="isTop" label="是否置顶" width="180">
         <template slot-scope="scope">
-          <el-tag size="medium">{{ scope.row.isTop == true ? "是" : "否" }}</el-tag>
+          <el-tag size="medium">{{ scope.row.isTop === true ? "是" : "否" }}</el-tag>
         </template>
       </el-table-column>
 
