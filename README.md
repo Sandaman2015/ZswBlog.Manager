@@ -12,7 +12,14 @@
 
 [ZswBlog后端服务](https://github.com/Sandaman2015/ZswBlog.Core)
 
-预览图：
+### 预览图：
 
 ![](https://i.loli.net/2021/09/18/qyRteO4WAZ5brKD.png)
 
+### 运行项目：
+
+``` shell
+npm install
+
+npm run dev
+```
